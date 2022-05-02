@@ -11,6 +11,7 @@ app.get('/',(req,res)=>{
         res.send('Running Chaccu')
 })
 app.listen(port,()=>{
-    console.log("Sunchi bondhu",port)
+    console.log("Sunchi bondhu 50000000000",port)
+    console.log("Sunchi bondhu 50000000000")
 })
 
