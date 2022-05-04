@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
 const port = process.env.PORT || 5000;
 const cors = require("cors");
@@ -23,6 +23,26 @@ async function run (){
                 const items = await cursor.toArray()
                 res.send(items)
             })
+            app.get('/item/:id',async(req,res)=>{
+                const id = req.params;
+                const query = {_id:ObjectId(id)}
+                const result = await itemCollection.findOne(query)
+                res.send(result)
+            })
+            app.put('/item/:id', async (req, res) => {
+                const id = req.params;
+                const updatedProduct = req.body;
+                console.log(updatedProduct);
+                const filter = { _id: ObjectId(id) };
+                const options = { upsert: true };
+                const updateDoc = {
+                    $set: {
+                        quantity: updatedProduct.quantity
+                    },
+                };
+                const result = await itemCollection.updateOne(filter, updateDoc, options);
+                res.send(result);
+            })
         }
         finally{}
 }
@@ -33,6 +53,6 @@ app.get('/',(req,res)=>{
         res.send('Running Chaccu')
 })
 app.listen(port,()=>{
-    console.log("Sunchi bondhu 50000000000",port);
+    console.log("listening to port",port);
 })
 
