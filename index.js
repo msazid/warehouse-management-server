@@ -64,7 +64,7 @@ run().catch(console.dir)
 
 
 app.get('/',(req,res)=>{
-        res.send('Running Chaccu')
+        res.send('Running Server')
 })
 app.listen(port,()=>{
     console.log("listening to port",port);
