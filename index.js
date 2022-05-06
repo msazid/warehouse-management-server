@@ -56,6 +56,13 @@ async function run (){
                 const result = await itemCollection.insertOne(newItem);
                 res.send(result);
             })
+            app.get('/additem',async(req,res)=>{
+                const email = req.query.email;
+                const query = {email:email};
+                const cursor = itemCollection.find(query);
+                const result = await cursor.toArray();
+                res.send(result)
+            })
             
         }
         finally{}
